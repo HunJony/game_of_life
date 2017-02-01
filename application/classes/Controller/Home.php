@@ -12,6 +12,13 @@ class Controller_Home extends Controller_Default {
 
 	public function action_index()
 	{
-        echo 'home';
+        $model = Model::factory('Home');
+        $board = $model->createBoard(10,10);
+        $board->setCellsAliveByPattern();
+
+        $this->view->board = $board;
+        //$this->view->board2 = array();
+        $board2 = clone $board;
+        $this->view->board2 = $board2->calculateNextGeneration();
 	}
 }
