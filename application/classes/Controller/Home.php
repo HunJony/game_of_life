@@ -39,6 +39,11 @@ class Controller_Home extends Controller_Default {
                         echo json_encode($data->getCells());
                         break;
 
+                    case 'saveActualPatternToDatabase':
+                        $data = $model->saveActualPatternToDatabase($this->request->post('boardWidth'),$this->request->post('boardHeight'),$this->request->post('aliveCells'),$this->request->post('name'));
+                        echo json_encode($data);
+                        break;
+
                     default: echo "Main target not found!";
                 }
                 break;

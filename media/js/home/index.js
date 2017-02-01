@@ -26,6 +26,10 @@ $(document).ready(function () {
 
             this.boardWidth = $('input[name="width"]');
             this.boardHeight = $('input[name="height"]');
+
+            this.saveActualPattern = $('div.saveActualPattern');
+            this.patternName = this.saveActualPattern.find('input[name="patternName"]');
+            this.saveActualPatternButton = this.saveActualPattern.find('button#saveActualPattern');
         },
         this.addEvents = function () {
             this.playButton.click(this.playButtonClick);
@@ -35,6 +39,7 @@ $(document).ready(function () {
             this.boardWidth.change(this.boardWidthChange);
             this.boardHeight.change(this.boardHeightChange);
             this.board.on('click','td',this.cellClick);
+            this.saveActualPatternButton.click(this.saveActualPatternButtonClick);
         },
         this.addWidgets = function () {
 
@@ -131,6 +136,43 @@ $(document).ready(function () {
             } else {
                 $this.addClass('isAlive');
             }
+        },
+        this.saveActualPatternButtonClick = function() {
+            var name = _self.patternName.val();
+            if (name == "") {
+                _self.patternName.parent().find('p#errorMessage').text("Adjon meg egy nevet az aktuálsi mintának!");
+                return false;
+            }
+
+            _self.saveActualPatternToDatabase(name);
+        },
+        this.saveActualPatternToDatabase = function(name) {
+            if (!_self.validateInput(_self.boardWidth)) return false;
+            if (!_self.validateInput(_self.boardHeight)) return false;
+
+            var aliveCells = _self.collectAliveCells();
+            var boardWidth = _self.boardWidth.val();
+            var boardHeight = _self.boardHeight.val();
+
+            if (aliveCells.length < 1) {
+                _self.patternName.parent().find('p#errorMessage').text("A minta üres! Adjon meg pontokat!");
+                return false;
+            }
+
+            $.ajax({
+                url: ROOT + 'home/ajax/index/saveActualPatternToDatabase',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    boardWidth: boardWidth,
+                    boardHeight: boardHeight,
+                    aliveCells: aliveCells,
+                    name: name
+                },
+                success: function(data){
+
+                }
+            });
         }
     }
 

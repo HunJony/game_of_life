@@ -39,6 +39,14 @@ echo "</table>";
             <button id="PrevStep">PrevStep</button>
             <button id="NextStep">NextStep</button>
         </div>
+        <div class="saveActualPattern">
+            <div class="input-container">
+                <label>Név</label>
+                <input name="patternName" type="text" />
+                <p id="errorMessage"></p>
+            </div>
+            <button id="saveActualPattern">Aktuális mentése</button>
+        </div>
 
         <script type="text/javascript" src="<?php echo URL::base()."media/js/jquery/jquery-3.1.1.min.js"; ?>"></script>
         <script type="text/javascript" src="<?php echo URL::base()."media/js/home/index.js"; ?>"></script>

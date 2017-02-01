@@ -24,4 +24,12 @@ class Model_Home extends Model
         $nextBoard = clone $board;
         return $nextBoard->calculateNextGeneration();
     }
+
+    public function saveActualPatternToDatabase($boardWidth,$boardHeight,$aliveCells,$name)
+    {
+        $board = $this->createBoard($boardWidth,$boardHeight);
+        $board->setCellsAliveByPattern('unique',$aliveCells);
+
+
+    }
 }
