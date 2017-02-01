@@ -103,7 +103,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/game_of_life',
+	'base_url'   => 'http://127.0.0.1/game_of_life',
     'index_file' => false
 ));
 

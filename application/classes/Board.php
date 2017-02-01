@@ -59,9 +59,9 @@ class Board
         }
     }
 
-    public function setCellsAliveByPattern($patternName = "default")
+    public function setCellsAliveByPattern($patternName = "default", $aliveCells = array())
     {
-        $pattern = $this->getPatternByName($patternName);
+        $pattern = ($patternName == 'unique') ? $aliveCells : $this->getPatternByName($patternName);
         foreach ($pattern as $row)
         {
             /* @var $cell Cell*/

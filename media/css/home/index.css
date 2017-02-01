@@ -1,4 +1,14 @@
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
 td {
+    border: 1px solid;
     width: 10px;
     height: 15px;
+}
+
+td.isAlive {
+    background-color: #000000;
 }

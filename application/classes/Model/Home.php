@@ -9,15 +9,19 @@
  */
 class Model_Home extends Model
 {
-    public function getActualTick()
-    {
-
-    }
-
     public function createBoard($width = null, $height = null)
     {
         $board = Board::factory($width,$height);
 
         return $board;
+    }
+
+    public function calculateNextGeneration($boardWidth,$boardHeight,$aliveCells)
+    {
+        $board = $this->createBoard($boardWidth,$boardHeight);
+        $board->setCellsAliveByPattern('unique',$aliveCells);
+
+        $nextBoard = clone $board;
+        return $nextBoard->calculateNextGeneration();
     }
 }

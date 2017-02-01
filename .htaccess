@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Installation directory
-RewriteBase /
+RewriteBase /game_of_life/
 
 # Protect hidden files from being viewed
 <Files .*>

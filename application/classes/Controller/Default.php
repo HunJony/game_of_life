@@ -14,11 +14,16 @@ class Controller_Default extends Controller {
 
 	public function before()
 	{
-        $this->view = View::factory(Request::current()->controller().DIRECTORY_SEPARATOR.Request::current()->action());
+	    if (Request::current()->action() != 'ajax') {
+            $this->view = View::factory(Request::current()->controller() . DIRECTORY_SEPARATOR . Request::current()->action());
+            $this->view->base_url = URL::base();
+        }
 	}
 
 	public function after()
 	{
-        $this->response->body($this->view);
+        if (Request::current()->action() != 'ajax') {
+            $this->response->body($this->view);
+        }
 	}
 }
