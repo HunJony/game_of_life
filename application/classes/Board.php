@@ -129,8 +129,14 @@ class Board
             /* @var $cell Cell*/
             foreach ($row as $cell)
             {
-                if ($cell->willDie) $cell->isAlive = false;
-                if ($cell->willAlive) $cell->isAlive = true;
+                if ($cell->willDie) {
+                    $cell->isAlive = false;
+                    $cell->willDie = null;
+                }
+                if ($cell->willAlive) {
+                    $cell->isAlive = true;
+                    $cell->willAlive = null;
+                }
             }
         }
 

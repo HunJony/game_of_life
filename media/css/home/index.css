@@ -12,3 +12,7 @@ td {
 td.isAlive {
     background-color: #000000;
 }
+
+p#errorMessage {
+    color: red;
+}
