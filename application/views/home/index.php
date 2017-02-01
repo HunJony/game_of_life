@@ -49,7 +49,6 @@ echo "</table>";
         <div class="controlButtons">
             <button id="Play">Play</button>
             <button id="Stop">Stop</button>
-            <button id="PrevStep">PrevStep</button>
             <button id="NextStep">NextStep</button>
         </div>
         <div class="saveActualPattern">

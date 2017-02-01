@@ -21,7 +21,6 @@ $(document).ready(function () {
             this.controlButtons = $('div.controlButtons');
             this.playButton = this.controlButtons.find('button#Play');
             this.stopButton = this.controlButtons.find('button#Stop');
-            this.prevStepButton = this.controlButtons.find('button#PrevStep');
             this.nextStepButton = this.controlButtons.find('button#NextStep');
 
             this.boardWidth = $('input[name="width"]');
@@ -36,7 +35,6 @@ $(document).ready(function () {
         this.addEvents = function () {
             this.playButton.click(this.playButtonClick);
             this.stopButton.click(this.stopButtonClick);
-            this.prevStepButton.click(this.prevStepButtonClick);
             this.nextStepButton.click(this.nextStepButtonClick);
             this.boardWidth.change(this.boardWidthChange);
             this.boardHeight.change(this.boardHeightChange);
@@ -53,9 +51,6 @@ $(document).ready(function () {
         },
         this.stopButtonClick = function() {
             _self.playing = false;
-        },
-        this.prevStepButtonClick = function() {
-
         },
         this.nextStepButtonClick = function() {
             _self.playing = false;
