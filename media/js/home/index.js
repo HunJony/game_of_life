@@ -30,6 +30,8 @@ $(document).ready(function () {
             this.saveActualPattern = $('div.saveActualPattern');
             this.patternName = this.saveActualPattern.find('input[name="patternName"]');
             this.saveActualPatternButton = this.saveActualPattern.find('button#saveActualPattern');
+
+            this.savedPatterns = $('select[name="savedPatterns"]');
         },
         this.addEvents = function () {
             this.playButton.click(this.playButtonClick);
@@ -40,6 +42,7 @@ $(document).ready(function () {
             this.boardHeight.change(this.boardHeightChange);
             this.board.on('click','td',this.cellClick);
             this.saveActualPatternButton.click(this.saveActualPatternButtonClick);
+            this.savedPatterns.change(this.savedPatternsChange);
         },
         this.addWidgets = function () {
 
@@ -81,16 +84,7 @@ $(document).ready(function () {
                     aliveCells: aliveCells
                 },
                 success: function(data) {
-                    var html = "";
-                    $.each(data,function(x,row){
-                        html += "<tr>";
-                        $.each(row,function(y,cell){
-                            html += "<td class='"+(cell.isAlive ? 'isAlive' : '')+"' data-x='"+x+"' data-y='"+y+"'>";
-                            html += "</td>";
-                        });
-                        html += "</tr>";
-                    });
-                    _self.board.empty().html(html);
+                    _self.createTableInside(data);
                 }
             });
             if (_self.playing) {
@@ -98,6 +92,18 @@ $(document).ready(function () {
                     if (_self.playing) _self.reDraw()
                 }, 1000);
             }
+        },
+        this.createTableInside = function(data) {
+            var html = "";
+            $.each(data,function(x,row){
+                html += "<tr>";
+                $.each(row,function(y,cell){
+                    html += "<td class='"+(cell.isAlive ? 'isAlive' : '')+"' data-x='"+x+"' data-y='"+y+"'>";
+                    html += "</td>";
+                });
+                html += "</tr>";
+            });
+            _self.board.empty().html(html);
         },
         this.collectAliveCells = function() {
             var aliveCells = [];
@@ -170,7 +176,34 @@ $(document).ready(function () {
                     name: name
                 },
                 success: function(data){
+                    if (!data.error) {
+                        _self.savedPatterns.append('<option value="'+data.id+'">'+data.name+'</option>');
+                        _self.savedPatterns.val(data.id);
+                        _self.patternName.parent().find('p#errorMessage').html('<font color="green">'+data.message+'</font>');
+                    } else {
+                        _self.patternName.parent().find('p#errorMessage').html(data.message);
+                    }
+                }
+            });
+        },
+        this.savedPatternsChange = function() {
+            var value = $(this).val();
+            if (value == -1) return false;
 
+            $.ajax({
+                url: ROOT + 'home/ajax/index/loadPatternFromDatabase',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: value
+                },
+                success: function(data){
+                    if (data.error) {
+                        _self.patternName.parent().find('p#errorMessage').html(data.message);
+                        return false;
+                    }
+
+                    _self.createTableInside(data);
                 }
             });
         }

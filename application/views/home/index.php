@@ -8,6 +8,19 @@
     <body>
         <h1>Game of Life</h1>
         <div class="input-container">
+            <label>Mentett minták</label>
+            <select name="savedPatterns">
+                <option value="-1">Kérlek válassz...</option>
+                <?php
+                foreach ($patterns as $pattern)
+                {
+                    echo "<option value='$pattern->pat_id'>$pattern->pat_name</option>";
+                }
+                ?>
+            </select>
+            <p id="errorMessage"></p>
+        </div>
+        <div class="input-container">
             <label>Szélesség</label>
             <input name="width" type="text" value="10" />
             <p id="errorMessage"></p>

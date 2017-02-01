@@ -13,7 +13,7 @@ class Model_Pattern extends ORM
     
     protected $_has_many = array(
         'points'=>array(
-            'model'=>'Pattern_Points',
+            'model'=>'Pattern_Point',
             'foreign_key'=>'patpoi_pat_id'
         )
     );

@@ -21,9 +21,8 @@ class Controller_Home extends Controller_Default {
         $this->view->boardWidth = $boardWidth;
         $this->view->boardHeight = $boardHeight;
         $this->view->board = $board;
-        //$this->view->board2 = array();
-        /*$board2 = clone $board;
-        $this->view->board2 = $board2->calculateNextGeneration();*/
+
+        $this->view->patterns = ORM::factory("Pattern")->find_all();
 	}
 
     public function action_ajax()
@@ -41,6 +40,11 @@ class Controller_Home extends Controller_Default {
 
                     case 'saveActualPatternToDatabase':
                         $data = $model->saveActualPatternToDatabase($this->request->post('boardWidth'),$this->request->post('boardHeight'),$this->request->post('aliveCells'),$this->request->post('name'));
+                        echo json_encode($data);
+                        break;
+
+                    case 'loadPatternFromDatabase':
+                        $data = $model->loadPatternFromDatabase($this->request->post('id'));
                         echo json_encode($data);
                         break;
 
